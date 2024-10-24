@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentCellIndex = item.getAttribute('data-cell');
                 if (championsAcceptables[currentCellIndex].includes(currentPlayer)) {
                     item.textContent = currentPlayer; // Afficher X ou O
-                    currentPlayer = currentPlayer === "X" ? "O" : "X"; // Changer de joueur
+                    startTurn();
                     playerDisplay.textContent = `Joueur actuel: ${currentPlayer}`;
                 }
             }
@@ -218,6 +218,7 @@ function afficherJoueur() {
 
 function jouerTicTacLOL() {
     initGame(); // Lancer la partie
+    startTurn();
 
     // Sélectionner uniquement les cellules qui ont la classe 'grid-item'
     const cells = document.querySelectorAll('.grid-item');
@@ -232,6 +233,34 @@ function jouerTicTacLOL() {
             }
         });
     });
+}
+
+let timer; // Variable pour le timer
+let timeLeft = 15; // Temps initial
+
+function startTurn() {
+    clearTimeout(timer); // Assurez-vous de nettoyer le précédent timer
+    timeLeft = 15; // Réinitialiser le temps
+    document.getElementById('timer').innerText = timeLeft; // Afficher le temps initial
+
+    // Démarrez le timer de 15 secondes
+    timer = setInterval(() => {
+        timeLeft--; // Décrémenter le temps restant
+        document.getElementById('timer').innerText = timeLeft; // Mettre à jour l'affichage
+
+        if (timeLeft <= 0) {
+            clearInterval(timer); // Nettoyer le timer
+            alert(`${currentPlayer} n'a pas fait de choix à temps ! Passons au joueur suivant.`);
+            switchPlayer(); // Passer au joueur suivant
+        }
+    }, 1000); // Mettre à jour toutes les secondes
+
+    // Ajoutez ici le code pour permettre au joueur de choisir une case
+}
+
+function switchPlayer() {
+    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X'; // Alterner entre X et O
+    startTurn(); // Commencer le tour du nouveau joueur
 }
 
 function afficherRechercheChampion(index) {

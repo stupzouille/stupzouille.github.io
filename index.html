@@ -1,67 +1,330 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac LOL</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e1be6aadba49cd32f162b8e068e2cbf3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
 </head>
 <body>
-  <div class="container text-center">
-    <div class="row align-items-start">
-      
-      <!-- Colonne gauche avec le bouton de démarrage -->
-      <div class="col">
-        <button id="startButton" class="btn btn-primary">Commencer</button>
-      </div>
-      
-      <!-- Colonne centrale avec la grille de jeu -->
-      <div class="col">
-        <img class="imagetitle" src="images/championsclash.png" alt="Champion's Clash" style="max-width: 100%; height: auto;"/>
-        <div id="gameGrid" class="grid-container">
-            <!-- Ligne des catégories horizontales (en haut) -->
-            <div class="template"><img src="images/championsclash.png" alt="Champion's Clash"/></div>
-            <div class="categorie-col"></div>
-            <div class="categorie-col"></div>
-            <div class="categorie-col"></div>
     
-            <!-- Deuxième ligne, première catégorie en ligne -->
-            <div class="categorie-lign"></div>
-            <div data-cell="0" class="grid-item"></div>
-            <div data-cell="1" class="grid-item"></div>
-            <div data-cell="2" class="grid-item"></div>
     
-            <!-- Troisième ligne, deuxième catégorie en ligne -->
-            <div class="categorie-lign"></div>
-            <div data-cell="3" class="grid-item"></div>
-            <div data-cell="4" class="grid-item"></div>
-            <div data-cell="5" class="grid-item"></div>
-    
-            <!-- Quatrième ligne, troisième catégorie en ligne -->
-            <div class="categorie-lign"></div>
-            <div data-cell="6" class="grid-item"></div>
-            <div data-cell="7" class="grid-item"></div>
-            <div data-cell="8" class="grid-item"></div>
-        </div>
-    </div>
-    
-      <!-- Colonne droite avec la recherche de champions -->
-      <div class="col">
-        <input type="text" id="champSearchInput" class="form-control" style="display: none;" placeholder="Chercher un champion...">
-        <div id="champSuggestions" style="display: none;"></div>
-      </div>
-  
-    </div>
-  </div>
-
-  <div class="container text-center">
-    <div class="row align-items-center">
-      <div id="currentPlayerDisplay"></div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+            <div class="folium-map" id="map_e1be6aadba49cd32f162b8e068e2cbf3" ></div>
+        
 </body>
+<script>
+    
+    
+            var map_e1be6aadba49cd32f162b8e068e2cbf3 = L.map(
+                "map_e1be6aadba49cd32f162b8e068e2cbf3",
+                {
+                    center: [44.8378, -0.5792],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 14,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_d5487c1a1b1afa2fccec044871a81bb7 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_d5487c1a1b1afa2fccec044871a81bb7.addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+            var marker_28458753e62fc0b963324b4255ce9396 = L.marker(
+                [44.8342, -0.5652],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_69a4f5fb4d648b94104ea8f668cc8f4b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_051cda5cdeef676912b1001989adf197 = $(`<div id="html_051cda5cdeef676912b1001989adf197" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8342,-0.5652&travelmode=walking" target="_blank">Itinéraire à pied vers Quartier Saint-Michel</a></div>`)[0];
+                popup_69a4f5fb4d648b94104ea8f668cc8f4b.setContent(html_051cda5cdeef676912b1001989adf197);
+            
+        
+
+        marker_28458753e62fc0b963324b4255ce9396.bindPopup(popup_69a4f5fb4d648b94104ea8f668cc8f4b)
+        ;
+
+        
+    
+    
+            var marker_48d5eb70a35a56f7dbbbcc5103c4799b = L.marker(
+                [44.8351, -0.57],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_6da244ee9692ede1d4228794f8541ca0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1ad4f9b42bfc2fb4e25440ac4f5b459e = $(`<div id="html_1ad4f9b42bfc2fb4e25440ac4f5b459e" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8351,-0.57&travelmode=walking" target="_blank">Itinéraire à pied vers Cours Victor Hugo</a></div>`)[0];
+                popup_6da244ee9692ede1d4228794f8541ca0.setContent(html_1ad4f9b42bfc2fb4e25440ac4f5b459e);
+            
+        
+
+        marker_48d5eb70a35a56f7dbbbcc5103c4799b.bindPopup(popup_6da244ee9692ede1d4228794f8541ca0)
+        ;
+
+        
+    
+    
+            var marker_a19c4ff620c5e25288caef5861cd133d = L.marker(
+                [44.8368, -0.5736],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_17140a43414075b9c7e9589c61b19afa = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_317ec08ec9a3f6e0f6b6e6d9e9554a17 = $(`<div id="html_317ec08ec9a3f6e0f6b6e6d9e9554a17" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8368,-0.5736&travelmode=walking" target="_blank">Itinéraire à pied vers Rue Sainte-Catherine</a></div>`)[0];
+                popup_17140a43414075b9c7e9589c61b19afa.setContent(html_317ec08ec9a3f6e0f6b6e6d9e9554a17);
+            
+        
+
+        marker_a19c4ff620c5e25288caef5861cd133d.bindPopup(popup_17140a43414075b9c7e9589c61b19afa)
+        ;
+
+        
+    
+    
+            var marker_cabf49ecfac257cf99d60323ff87993a = L.marker(
+                [44.8378, -0.5765],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_13fc5a3b11c502ec3c7d288d086e2545 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7d85a5d72f3e9cf475f5738a492ef83c = $(`<div id="html_7d85a5d72f3e9cf475f5738a492ef83c" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8378,-0.5765&travelmode=walking" target="_blank">Itinéraire à pied vers Cathédrale Saint-André</a></div>`)[0];
+                popup_13fc5a3b11c502ec3c7d288d086e2545.setContent(html_7d85a5d72f3e9cf475f5738a492ef83c);
+            
+        
+
+        marker_cabf49ecfac257cf99d60323ff87993a.bindPopup(popup_13fc5a3b11c502ec3c7d288d086e2545)
+        ;
+
+        
+    
+    
+            var marker_45fd08e8aa281f945ee14dd5abf53111 = L.marker(
+                [44.8387, -0.5741],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_2dd188b0943b74f6b44bf9b1ffd778b2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6f4e54b2327c2696200862ad10a72ab6 = $(`<div id="html_6f4e54b2327c2696200862ad10a72ab6" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8387,-0.5741&travelmode=walking" target="_blank">Itinéraire à pied vers Le Vieux Bordeaux</a></div>`)[0];
+                popup_2dd188b0943b74f6b44bf9b1ffd778b2.setContent(html_6f4e54b2327c2696200862ad10a72ab6);
+            
+        
+
+        marker_45fd08e8aa281f945ee14dd5abf53111.bindPopup(popup_2dd188b0943b74f6b44bf9b1ffd778b2)
+        ;
+
+        
+    
+    
+            var marker_f93d339ffbfac9774a52d63b16473d1e = L.marker(
+                [44.8414, -0.5699],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_9c50bb0f97496313a2db0f8fe4d1be04 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_04854bca2f69583b779fbc4614073a98 = $(`<div id="html_04854bca2f69583b779fbc4614073a98" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8414,-0.5699&travelmode=walking" target="_blank">Itinéraire à pied vers Place de la Bourse</a></div>`)[0];
+                popup_9c50bb0f97496313a2db0f8fe4d1be04.setContent(html_04854bca2f69583b779fbc4614073a98);
+            
+        
+
+        marker_f93d339ffbfac9774a52d63b16473d1e.bindPopup(popup_9c50bb0f97496313a2db0f8fe4d1be04)
+        ;
+
+        
+    
+    
+            var marker_03c8bc4b395a96f09ddcce950ebc10ca = L.marker(
+                [44.8421, -0.5689],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_8933a6125b72f00400c43c42f7471179 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1b31b450e35f09c01e4f2f1e77990e6e = $(`<div id="html_1b31b450e35f09c01e4f2f1e77990e6e" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8421,-0.5689&travelmode=walking" target="_blank">Itinéraire à pied vers Les Quais de la Garonne</a></div>`)[0];
+                popup_8933a6125b72f00400c43c42f7471179.setContent(html_1b31b450e35f09c01e4f2f1e77990e6e);
+            
+        
+
+        marker_03c8bc4b395a96f09ddcce950ebc10ca.bindPopup(popup_8933a6125b72f00400c43c42f7471179)
+        ;
+
+        
+    
+    
+            var marker_cc2bc61788155ff643bcdacb4f82c22a = L.marker(
+                [44.8425, -0.5746],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_c98f94493b7da3c60a8104a38c5f1fc7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e766ee0ff0b2f8b4c9c008ce210e64e4 = $(`<div id="html_e766ee0ff0b2f8b4c9c008ce210e64e4" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8425,-0.5746&travelmode=walking" target="_blank">Itinéraire à pied vers Place de la Comédie</a></div>`)[0];
+                popup_c98f94493b7da3c60a8104a38c5f1fc7.setContent(html_e766ee0ff0b2f8b4c9c008ce210e64e4);
+            
+        
+
+        marker_cc2bc61788155ff643bcdacb4f82c22a.bindPopup(popup_c98f94493b7da3c60a8104a38c5f1fc7)
+        ;
+
+        
+    
+    
+            var marker_447cc17dffac78dc65f019cc867d1f62 = L.marker(
+                [44.8452, -0.5754],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_702fa7ead428a43bf0d06a5d870228c0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_73b981e1d8131fa1a9aea8e3e395da4c = $(`<div id="html_73b981e1d8131fa1a9aea8e3e395da4c" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8452,-0.5754&travelmode=walking" target="_blank">Itinéraire à pied vers Place des Quinconces</a></div>`)[0];
+                popup_702fa7ead428a43bf0d06a5d870228c0.setContent(html_73b981e1d8131fa1a9aea8e3e395da4c);
+            
+        
+
+        marker_447cc17dffac78dc65f019cc867d1f62.bindPopup(popup_702fa7ead428a43bf0d06a5d870228c0)
+        ;
+
+        
+    
+    
+            var marker_48621ce878fbec1c575cb548ec737bbc = L.marker(
+                [44.8471, -0.5767],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_3b5943e85fa716e84d09024911981dec = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f2f41c9349e4d19848044814d3857c77 = $(`<div id="html_f2f41c9349e4d19848044814d3857c77" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8471,-0.5767&travelmode=walking" target="_blank">Itinéraire à pied vers Jardin Public</a></div>`)[0];
+                popup_3b5943e85fa716e84d09024911981dec.setContent(html_f2f41c9349e4d19848044814d3857c77);
+            
+        
+
+        marker_48621ce878fbec1c575cb548ec737bbc.bindPopup(popup_3b5943e85fa716e84d09024911981dec)
+        ;
+
+        
+    
+    
+            var marker_e1aa70a040061f669fb14ac38e49a786 = L.marker(
+                [44.845, -0.5779],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_db9d6343e4b1a98593f455ca9ee8992d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0a5b2f6b3df3c4f4465f6de1c63d40c9 = $(`<div id="html_0a5b2f6b3df3c4f4465f6de1c63d40c9" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.845,-0.5779&travelmode=walking" target="_blank">Itinéraire à pied vers Place Tourny</a></div>`)[0];
+                popup_db9d6343e4b1a98593f455ca9ee8992d.setContent(html_0a5b2f6b3df3c4f4465f6de1c63d40c9);
+            
+        
+
+        marker_e1aa70a040061f669fb14ac38e49a786.bindPopup(popup_db9d6343e4b1a98593f455ca9ee8992d)
+        ;
+
+        
+    
+    
+            var marker_fed9beeb66808ceb0dc2df8aea4cf6f1 = L.marker(
+                [44.8431, -0.5776],
+                {}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+    
+        var popup_ecafd814ecdda7ce546c4c498be809c0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_a18e872ae0562db76f6164e61f4f5873 = $(`<div id="html_a18e872ae0562db76f6164e61f4f5873" style="width: 100.0%; height: 100.0%;"><a href="https://www.google.com/maps/dir/?api=1&destination=44.8431,-0.5776&travelmode=walking" target="_blank">Itinéraire à pied vers Triangle d'Or</a></div>`)[0];
+                popup_ecafd814ecdda7ce546c4c498be809c0.setContent(html_a18e872ae0562db76f6164e61f4f5873);
+            
+        
+
+        marker_fed9beeb66808ceb0dc2df8aea4cf6f1.bindPopup(popup_ecafd814ecdda7ce546c4c498be809c0)
+        ;
+
+        
+    
+    
+            var poly_line_2ed79338e26eb4fde6a004797e336ea8 = L.polyline(
+                [[44.8342, -0.5652], [44.8351, -0.57], [44.8368, -0.5736], [44.8378, -0.5765], [44.8387, -0.5741], [44.8414, -0.5699], [44.8421, -0.5689], [44.8425, -0.5746], [44.8452, -0.5754], [44.8471, -0.5767], [44.845, -0.5779], [44.8431, -0.5776]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_e1be6aadba49cd32f162b8e068e2cbf3);
+        
+</script>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Je t'aime ma chérie</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold text-blue-600">Tu sais que je t'aime ? ❤️</h1>
+    <p class="text-lg mt-4">Du coup, comme je sais que t'aimes bien les énigmes, en voilà une</p>
+
+    <!-- Une carte pour un indice -->
+    <div class="mt-8 p-6 bg-white rounded shadow-md">
+      <h2 class="text-2xl font-semibold">C'est ici que tout a commencé. Quel est ce lieu ?</h2>
+      <p class="mt-2">Et non la réponse ce n'est pas la place de comédie, je cherche plus précis</p>
+      <input 
+        id="answerInput" 
+        type="text" 
+        placeholder="Je cherche un lieu" 
+        class="mt-4 p-2 border rounded w-full">
+      <button 
+        id="submitButton" 
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+        Soumettre
+      </button>
+      <p id="feedback" class="mt-4 text-red-500 hidden">Réponse incorrecte. Réessayez !</p>
+    </div>
+
+    <!-- Bouton pour révéler l'indice -->
+    <div class="mt-8">
+      <button 
+        id="revealHintButton" 
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
+        Révéler un indice
+      </button>
+      <!-- Indice sous forme d'image -->
+      <img 
+        id="hintImage" 
+        src="./images/IMG_6736.png" 
+        alt="Indice" 
+        class="mt-4 hidden rounded shadow-lg w-64"
+      >
+    </div>
+  </div>
+
+  <script>
+    // Révéler l'indice sous forme d'image
+    const revealHintButton = document.getElementById('revealHintButton');
+    const hintImage = document.getElementById('hintImage');
+
+    revealHintButton.addEventListener('click', () => {
+      hintImage.classList.remove('hidden'); // Affiche l'image
+      revealHintButton.disabled = true; // Désactive le bouton
+      revealHintButton.classList.add('opacity-50', 'cursor-not-allowed'); // Ajoute un style de désactivation
+    });
+
+    // Vérification de la réponse
+    const answerInput = document.getElementById('answerInput');
+    const submitButton = document.getElementById('submitButton');
+    const feedback = document.getElementById('feedback');
+
+    // Réponse correcte
+    const correctAnswer = "Footlocker";
+
+    submitButton.addEventListener('click', () => {
+      const userAnswer = answerInput.value.trim();
+
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        window.location.href = "1456.html"; // Remplace avec l'URL de la page suivante
+      } else {
+        feedback.classList.remove('hidden'); // Montre le message d'erreur
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Je t'aime ma chérie</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold text-blue-600">Je sais que tu l'aimes pas trop trop celle-là</h1>
+    <p class="text-lg mt-4">Mais t'es trop mimi</p>
+
+    <!-- Une carte pour un indice avec une image -->
+    <div class="mt-8 p-6 bg-white rounded shadow-md">
+      <h2 class="text-2xl font-semibold">Genre ahhhhhh</h2>
+      
+      <!-- Image ajoutée comme question --> 
+      <img src="./images/genrewow.jpg" alt="Question" class="mt-4 w-1/5 h-auto rounded shadow-lg mx-auto">
+
+      <p class="mt-4">Trop belle</p>
+      <button 
+        id="submitButton" 
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+        Continuer
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Vérification du bouton de soumission
+    const submitButton = document.getElementById('submitButton');
+
+    submitButton.addEventListener('click', () => {
+      // Rediriger vers la page suivante
+      window.location.href = "equation.html";
+    });
+  </script>
+</body>
+</html>

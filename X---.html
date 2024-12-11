@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Je t'aime ma chérie</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold text-blue-600">Elles sont belles ces fleurs non ? 💐</h1>
+    <p class="text-lg mt-4">Bon maintenant, on va te faire réfléchir</p>
+
+    <!-- Une carte pour un indice -->
+    <div class="mt-8 p-6 bg-white rounded shadow-md">
+      <h2 class="text-2xl font-semibold">Tu vois l'url de cette page ?</h2>
+      <p class="mt-2">Le X indique la réponse</p>
+      <input 
+        id="answerInput" 
+        type="text" 
+        placeholder="Je cherche un nombre de 4 chiffres" 
+        class="mt-4 p-2 border rounded w-full">
+      <button 
+        id="submitButton" 
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+        Soumettre
+      </button>
+      <p id="feedback" class="mt-4 text-red-500 hidden">Réponse incorrecte. Réessayez !</p>
+    </div>
+
+    <!-- Bouton pour révéler l'indice -->
+    <div class="mt-8">
+      <button 
+        id="revealHintButton" 
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
+        Révéler un indice
+      </button>
+      <!-- Indice sous forme d'image -->
+      <p id="hintText" class="mt-4 text-gray-700 hidden">
+        Ils ressemblent à quoi les urls des pages d'avant ?
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Révéler l'indice sous forme d'image
+    const revealHintButton = document.getElementById('revealHintButton');
+    const hintText = document.getElementById('hintText');
+
+    revealHintButton.addEventListener('click', () => {
+      hintText.classList.remove('hidden'); // Affiche le texte de l'indice
+      revealHintButton.disabled = true; // Désactive le bouton après utilisation
+      revealHintButton.classList.add('opacity-50', 'cursor-not-allowed'); // Style désactivé
+    });
+
+    // Vérification de la réponse
+    const answerInput = document.getElementById('answerInput');
+    const submitButton = document.getElementById('submitButton');
+    const feedback = document.getElementById('feedback');
+
+    // Réponse correcte
+    const correctAnswer = "1608";
+
+    submitButton.addEventListener('click', () => {
+      const userAnswer = answerInput.value.trim();
+
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        window.location.href = "telephone.html"; // Remplace avec l'URL de la page suivante
+      } else {
+        feedback.classList.remove('hidden'); // Montre le message d'erreur
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Je t'aime ma chérie</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold text-blue-600">Bon faisons un peu de math</h1>
+    <p class="text-lg mt-4">Je sais que tu adores ça</p>
+
+    <!-- Une carte pour un indice avec une image -->
+    <div class="mt-8 p-6 bg-white rounded shadow-md">
+      <h2 class="text-2xl font-semibold">Tu peux me résoudre cette équation ?</h2>
+      
+      <!-- Image ajoutée comme question -->
+      <img src="./images/equa.png" alt="Question" class="mt-4 w-1/3 h-auto rounded shadow-lg mx-auto">
+
+      <p class="mt-4">C'est trop simple pour toi la</p>
+      <input 
+        id="answerInput" 
+        type="text" 
+        placeholder="Valeur de x ?" 
+        class="mt-4 p-2 border rounded w-full">
+      <button 
+        id="submitButton" 
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+        Soumettre
+      </button>
+      <p id="feedback" class="mt-4 text-red-500 hidden">Comment ça t'as pas la bonne réponse ???</p>
+    </div>
+  </div>
+
+  <script>
+    // Vérification de la réponse
+    const answerInput = document.getElementById('answerInput');
+    const submitButton = document.getElementById('submitButton');
+    const feedback = document.getElementById('feedback');
+
+    submitButton.addEventListener('click', () => {
+      const userAnswer = answerInput.value.trim();
+
+      const correctAnswer = "1";
+
+      // Vérification si l'entrée n'est pas vide et correcte
+      if (userAnswer === "") {
+        feedback.textContent = "Tu n'as pas écrit de réponse !"; // Affiche un message si vide
+        feedback.classList.remove('hidden');
+      } else if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        window.location.href = "clear.html"; // Remplace avec l'URL de la page suivante
+      } else {
+        feedback.classList.remove('hidden'); // Montre le message d'erreur
+      }
+    });
+  </script>
+</body>
+</html>

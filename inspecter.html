@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Je t'aime ma chérie</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="Code super secret : 1254"></div>  
+  <div class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold text-blue-600">Félicitations c'est déjà un beau parcours que tu viens de nous faire</h1>
+    <p class="text-lg mt-4">Je t'aime</p>
+
+    <!-- Une carte pour un indice -->
+    <div class="mt-8 p-6 bg-white rounded shadow-md">
+      <h2 class="text-2xl font-semibold">Le code est caché sur la page mais n'est pas visible directement</h2>
+      <p class="mt-2">Il suffit juste de bien INSPECTER la page</p>
+      <input 
+        id="answerInput" 
+        type="text" 
+        placeholder="Je cherche un code de 4 chiffres" 
+        class="mt-4 p-2 border rounded w-full">
+      <button 
+        id="submitButton" 
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+        Soumettre
+      </button>
+      <p id="feedback" class="mt-4 text-red-500 hidden">Réponse incorrecte. Réessayez !</p>
+    </div>
+
+    <!-- Bouton pour révéler l'indice -->
+    <div class="mt-8">
+      <button 
+        id="revealHintButton" 
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
+        Révéler un indice
+      </button>
+      <!-- Indice sous forme d'image -->
+      <p id="hintText" class="mt-4 text-gray-700 hidden">
+        Il faut utiliser la fonction inspecter de ton navigateur
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Révéler l'indice sous forme d'image
+    const revealHintButton = document.getElementById('revealHintButton');
+    const hintText = document.getElementById('hintText');
+
+    revealHintButton.addEventListener('click', () => {
+      hintText.classList.remove('hidden'); // Affiche le texte de l'indice
+      revealHintButton.disabled = true; // Désactive le bouton après utilisation
+      revealHintButton.classList.add('opacity-50', 'cursor-not-allowed'); // Style désactivé
+    });
+
+    // Vérification de la réponse
+    const answerInput = document.getElementById('answerInput');
+    const submitButton = document.getElementById('submitButton');
+    const feedback = document.getElementById('feedback');
+
+    // Réponse correcte
+    const correctAnswer = "1254";
+
+    submitButton.addEventListener('click', () => {
+      const userAnswer = answerInput.value.trim();
+
+      if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        window.location.href = "bonbahbravo.html"; // Remplace avec l'URL de la page suivante
+      } else {
+        feedback.classList.remove('hidden'); // Montre le message d'erreur
+      }
+    });
+  </script>
+</body>
+</html>
